@@ -4,10 +4,16 @@ import { useTexture } from '@tresjs/core'
 import  MOCA  from './Moca.vue'
 
 import {
+  MapControls,
   OrbitControls,
+  PointerLockControls,
+  KeyboardControls,
   TransformControls,
+  CameraControls,
   Text3D,
-  Stars
+  Stars,
+  useEnvironment,
+  Environment 
 } from '@tresjs/cientos'
 
 const boxRef1 = ref();
@@ -25,14 +31,22 @@ const boxRef3 = ref();
       <MOCA />
     </Suspense>
 
-
+  <Environment files="industrial_sunset_puresky_2k.hdr" background='true' />
     <TresPerspectiveCamera :args="[75,1,0.1,1000]" 
-      :position="[1,1,18]"
+      :position="[1,2,18]"
       :look-at="[0,0,0]"
        @is-lock="state => isActive(state)"
     />
 
-    <OrbitControls  make-default />
+   <!--    
+   <CameraControls />
+
+    <MapControls />
+   <OrbitControls  make-default />
+
+    <PointerLockControls />
+    <KeyboardControls />    
+    -->
     <Stars />
 
     <Suspense>
@@ -46,16 +60,16 @@ const boxRef3 = ref();
 
       </Text3D>
     </Suspense>
-    <TransformControls :object="boxRef1" mode="translate" />
-    <TransformControls :object="boxRef2" mode="rotate" />
-    <TransformControls :object="boxRef3" mode="scale" />
+    <TransformControls :object="boxRef1" mode="translate" size="0.2" />
+    <TransformControls :object="boxRef2" mode="rotate"  size="0.2" />
+    <TransformControls :object="boxRef3" mode="scale"  size="0.2"  />
 
     <TresScene>
     <TresMesh ref="boxRef1"  :position="[-18, 1,0]">
       <TresBoxGeometry :args="[1, 1, 1]" />
       <TresMeshToonMaterial color="#FBB03B" />
     </TresMesh>    
-      <TresMesh ref="boxRef2" :position="[0,1,-18]" :rotation="[0,Math.PI/6,0]">
+      <TresMesh ref="boxRef2" :position="[0,0,12]" :rotation="[0,Math.PI/6,0]">
         <TresBoxGeometry :args="[1,1,1]" />
         <TresMeshNormalMaterial color="blue" />
       </TresMesh>
